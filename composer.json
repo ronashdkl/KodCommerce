@@ -1,0 +1,19 @@
+{
+    "name": "ronashdhakal/kod-commerce-plugin",
+    "description": "E-commerce pluign for kodCMS",
+    "type": "plugin",
+    "authors": [
+        {
+            "name": "ro-nash",
+            "email": "ronash.dhakal96@gmail.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+    },
+    "autoload": {
+        "psr-4": {
+            "kodCommerce\\": "src"
+        }
+    }
+}
