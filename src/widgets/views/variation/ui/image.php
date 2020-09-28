@@ -5,4 +5,4 @@
  */
 ?>
 
-color
+image

@@ -1,68 +1,65 @@
-import { Cart, CartItem } from './models/cart.model';
-import { Product } from "./models/product.model";
-import { animateAddToCart } from "./functions/animateCart";
-import { Selector } from "./models/app.model";
-import { Observable } from "rxjs";
+import {Cart, CartItem} from './models/cart.model';
+import {Product} from "./models/product.model";
+import {animateAddToCart} from "./functions/animateCart";
+import {Selector} from "./models/app.model";
+import {BehaviorSubject, Observable} from "rxjs";
 
+declare let PRODUCT_VARIATIONS: any[];
 declare let cartJsConfig: Selector;
 declare var $: any;
-export class CartEvents {
-  constructor(
-    private cart: Cart = new Cart(),
-    private selector: Selector = cartJsConfig
-  ) {
-    this.triggerAddToCartButton();
-  }
-  get cartItem():Observable<CartItem> {
-    return this.cart.observable;
-  }
-  detachEvents(){
-    $("body").off("click");
-  }
-  listenAddToCartButton(event: any) {
-    const target = $(event.target);
-    const parent = target.parents(".item");
-    const name = parent.find(".item-title").text();
-    const price = parent.find(".item-price").data("price");
-    const img = parent
-      .find("img")
-      .eq(0)
-      .attr("src");
-    animateAddToCart(target, this.selector.totalCartItemSelector);
-    const item = new Product();
-    item.id = Number.parseInt(target.data("id"));
-    item.name = name;
-    item.price = price;
-    item.quantity = 1;
-    item.image = img;
-    this.cart.addItem(item);
-  }
 
-  listenQuantityButton(event: any) {
-    const index = $(event.target).data("index");
-    const type = $(event.target).data("type");
-    type === "inc"
-      ? this.cart.increaseQuantity(index, true)
-      : this.cart.decreaseQuantity(index);
-  }
+export class VariationEvents {
+    variationList: any = {};
+    productId: number;
+    private variations: BehaviorSubject<any[]> = new BehaviorSubject([]);
+    totalVariations: number;
 
-  listenRemoveButton(event: any) {
-    const index = $(event.target).data("index");
-    this.cart.removeItem(index);
-  }
+    constructor() {
+        this.listenVariationClick();
+    }
 
-  triggerAddToCartButton(){
-    $("." + this.selector.addToCartButtonSelector).click((event:any) =>
-    this.listenAddToCartButton(event)
-  );
-  }
-   triggerDynamicButton() {
-    const incDecButton = $(".inc-dec-button");
-    incDecButton.on("click", (event:any) =>
-      this.listenQuantityButton(event)
-    );
-    $(".cart-remove-item-button").on("click", (event:any) =>
-      this.listenRemoveButton(event)
-    );
-  }
+    detachEvents() {
+        $("body").off("click");
+    }
+
+    get SelectedVariation(): Observable<any[]> {
+        return this.variations.asObservable();
+    }
+
+    listenVariationClick() {
+        const $product = $('.product-variations');
+        this.totalVariations = $product.data('variations');
+        this.productId = $product.data('product');
+        $('.options-item > div').on('click', (e: any) => {
+            const target = $(e.target);
+            const parent = $(target.parent());
+            const attributeName = $(parent.parent()).data('attribute');
+
+            const attributeValue = target.data('value');
+            const parentClass = parent.attr('class').split(' ')[1];
+            if(target.hasClass('active')){
+                //target.removeClass('active');
+               // this.variationList = null;
+                return;
+            }
+            $('.options-item.' + parentClass + ' > div').removeClass('active');
+            target.addClass('active');
+            this.variationList[attributeName] = attributeValue;
+            let array = Object.keys(this.variationList).map(item => this.variationList[item]);
+            if (array.length == this.totalVariations) {
+                $('#kodCms-loading').show();
+                $.ajax({
+                    type: "POST",
+                    url: "/en/commerce/product/variation?id=" + this.productId,
+                    data: this.variationList,
+                    success: (res: any) => {
+                        $('#kodCms-loading').hide();
+                        this.variations.next(res)
+                    },
+                    dataType: 'json'
+                });
+
+            }
+        });
+    }
 }

@@ -5,7 +5,7 @@ class CommercePlugin{
     function __construct()
     {
         require __DIR__."/vendor/autoload.php";
-        Yii::setAlias('@kodcommerce',__DIR__."/src/");
+       Yii::setAlias('@kodcommerce',__DIR__."/src/");
     }
 
     public function install(){

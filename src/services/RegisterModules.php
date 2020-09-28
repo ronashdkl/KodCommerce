@@ -17,6 +17,12 @@ class RegisterModules
         ]);
         Yii::$app->set('kodCommerceSetting',\kodcommerce\models\KodCommerceSettingsModel::getInstance());
         Yii::$app->defaultRoute = Yii::$app->kodCommerceSetting->get('homepage')??'commerce';
+        Yii::$app->urlManager->addRules(
+            [
+                'product/<slug>'=>'commerce/product',
+                'search'=>'commerce/search'
+            ]
+        );
     }
 
 }

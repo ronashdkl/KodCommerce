@@ -13,12 +13,12 @@ class ProductImagesAsset extends AssetBundle
     public $sourcePath = '@kodcommerce/widgets/clientAssets';
 
     public $css = [
-        'zoom.css',
-        'product-images.css'
+//        'http://localhost:8080/kod_product.css',
+        'kod_product.css'
     ];
     public $js = [
-        'zoom.js',
-        'product-images.js'
+//        'http://localhost:8080/kod_product.js'
+        'kod_product.js'
     ];
 
     public $depends = [

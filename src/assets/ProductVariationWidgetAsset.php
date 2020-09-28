@@ -4,6 +4,7 @@ namespace kodcommerce\assets;
 
 use ronashdkl\kodCms\assets\AppAsset;
 use yii\web\AssetBundle;
+use yii\web\JqueryAsset;
 
 class ProductVariationWidgetAsset extends AssetBundle
 {
@@ -16,13 +17,15 @@ class ProductVariationWidgetAsset extends AssetBundle
     {
         parent::init();
         $this->sourcePath = dirname(__FILE__) . "/../../clientAssets/dist";
+        //$this->baseUrl = "http://localhost:8081/";
 
     }
 
     public $js = [
-        'variations.js'
+        'cart.js'
     ];
     public $depends = [
-        AppAsset::class
+       JqueryAsset::class,
+        JqueryUiAsset::class
     ];
 }

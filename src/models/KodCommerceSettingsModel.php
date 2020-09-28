@@ -50,6 +50,26 @@ class KodCommerceSettingsModel extends BaseModel
                 'group' => 'local',
                 'label'=>'Currency Code'
             ],
+            'fieldData[cart][dropdown][toggle-tag]' => [
+                'type' => FieldConfig::INPUT,
+                'group' => 'cart',
+                'label'=>'Tag for Cart Dropdown Toggle'
+            ],
+            'fieldData[cart][dropdown][toggle-tag-class]' => [
+                'type' => FieldConfig::INPUT,
+                'group' => 'cart',
+                'label'=>'Class for Cart Dropdown Toggle Tag'
+            ],
+            'fieldData[cart][dropdown][toggle-tag-text]' => [
+                'type' => FieldConfig::INPUT,
+                'group' => 'cart',
+                'label'=>'Text for Cart Dropdown Toggle Tag'
+            ],
+            'fieldData[cart][dropdown][li-tag-class]' => [
+                'type' => FieldConfig::INPUT,
+                'group' => 'cart',
+                'label'=>'Class for Cart Dropdown li Tag'
+            ],
 
         ]);
     }

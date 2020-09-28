@@ -2,7 +2,10 @@
 
 namespace kodCommerce\services;
 
+use kodcommerce\assets\ProductVariationWidgetAsset;
 use ronashdkl\kodCms\components\FieldConfig;
+use yii\base\Event;
+use yii\web\View;
 
 class RegisterHooks
 {
@@ -69,6 +72,7 @@ class RegisterHooks
         }, 20);
 
         $this->registerPostFields();
+
     }
 
     private function registerPostFields()
