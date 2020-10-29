@@ -2,10 +2,9 @@
 
 namespace kodCommerce\services;
 
-use kodcommerce\assets\ProductVariationWidgetAsset;
+
 use ronashdkl\kodCms\components\FieldConfig;
-use yii\base\Event;
-use yii\web\View;
+
 
 class RegisterHooks
 {
@@ -43,8 +42,8 @@ class RegisterHooks
             'group'=>'price'
         ],
         'product_type'=>[
-            'type'=>FieldConfig::CHECKBOX,
-            'data'=>[1=>'Variation'],
+            'type'=>FieldConfig::RADIO,
+            'data'=>[1=>'Variation',0=>'Simple'],
             'group'=>'price'
         ],
     ];
@@ -70,6 +69,8 @@ class RegisterHooks
             array_splice($menu, 2, 0, $this->admin_menu);
             return $menu;
         }, 20);
+
+
 
         $this->registerPostFields();
 

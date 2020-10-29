@@ -14,6 +14,7 @@ class CommercePlugin{
 
     function register(){
         \kodCommerce\Init::registerServices();
+
     }
 
     function disable(){

@@ -1,7 +1,8 @@
 <?php
+
 namespace kodCommerce;
 
-use kodcommerce\assets\ProductVariationWidgetAsset;
+use kodcommerce\assets\KodCommerceAsset;
 use yii\filters\AccessControl;
 use yii\web\View;
 
@@ -9,7 +10,10 @@ class KodCommerce extends \yii\base\Module
 {
     public $id = 'commerce-admin';
     public $controllerNamespace = "kodCommerce\\frontend\\controllers";
+
     //public $viewPath = '@kodcommerce/frontend/views';
+
+
     public function init()
     {
         parent::init();
@@ -17,20 +21,58 @@ class KodCommerce extends \yii\base\Module
         $this->viewPath = '@kodcommerce/frontend/views';
         $this->layout = '@app/views/layouts/main';
 
+
+        $this->setupPathMap();
         //kodCms-navigation
 
-$this->registerAssets();
+        $this->registerAssets();
     }
 
-    function registerAssets(){
+    private function setupPathMap(){
+        \Yii::$app->view->theme->pathMap['@kodcommerce/widgets/views'] = ['@app/widgets/views','@kodcommerce/widgets/views'];
+        \Yii::$app->view->theme->pathMap['@kodcommerce/frontend/views'] = ['@app/views/commerce/','@kodcommerce/frontend/views'];
 
-        \Yii::$app->view->registerJs("var cartJsConfig = {
-            summarySelector:'cart-items',
-            addToCartButtonSelector:'add-to-cart-button',
-            totalCartItemSelector:'cart-total-items',
-            priceSelector:'item-price'
-           
-  };",View::POS_HEAD);
-        \Yii::$app->view->registerAssetBundle(ProductVariationWidgetAsset::class);
+    }
+
+    function registerAssets()
+    {
+
+        \Yii::$app->view->registerAssetBundle(KodCommerceAsset::class);
+
+        $config = $this->initCartConfig();
+
+        $script = <<< JS
+                    window.kodCommerce = {
+                    variationConfig:null,
+                    cartConfig: $config ,
+                    }
+                JS;
+        \Yii::$app->view->registerJs($script, View::POS_HEAD);
+    }
+
+    private function initCartConfig()
+    {
+        $settings = \Yii::$app->get('kodCommerceSetting');
+        return json_encode([
+            'key' => 'cart',
+            'priceFormatter' => [
+                'currency' => $settings['fieldData']['currencyCode'],
+                'thousandSeparator' => $settings['fieldData']['thousandSeparator'],
+                'decimalSeparator' => $settings['fieldData']['decimalSeparator']
+
+            ]
+            ,
+            'apiRoute' => [
+                'controller' => "/en/commerce/cart-api",
+                'indexAction' => "",
+                'addAction' => "add",
+                'removeAction' => "delete",
+                'clearAction' => "clear",
+            ],
+            'errorMessage' => [
+                'contentError' => "Oops, we haven't got JSON!",
+
+            ]
+        ]);
     }
 }

@@ -11,10 +11,20 @@ public function register(){
        'class' => 'kodcommerce\cart\Cart',
        // you can change default storage class as following:
        'storageClass' => [
-           'class' => 'kodcommerce\cart\storage\DatabaseStorage',
+           'class' => 'kodcommerce\cart\storage\SessionStorage',
            // you can also override some properties
-           'deleteIfEmpty' => true
+           'key' => 'cart'
        ]
    ]);
+    \Yii::$app->set('wishList',[
+        'class' => 'kodcommerce\cart\Cart',
+        // you can change default storage class as following:
+        'storageClass' => [
+            'class' => 'kodcommerce\cart\storage\SessionStorage',
+            // you can also override some properties
+            'key' => 'wishList'
+        ]
+    ]);
+
 }
 }

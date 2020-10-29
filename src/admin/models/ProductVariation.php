@@ -4,8 +4,7 @@
 namespace kodCommerce\admin\models;
 
 
-use kodcommerce\cart\models\CartItemInterface;
-use ronashdkl\kodCms\models\post\PostModel;
+use kodCommerce\frontend\models\KodCommerceProduct;
 use yii\db\ActiveRecord;
 
 /**
@@ -16,10 +15,10 @@ use yii\db\ActiveRecord;
  * @property array $variations
  * @property float $price
  * @property integer $stock
- * @property PostModel $product
+ * @property KodCommerceProduct $product
  *
  */
-class ProductVariation extends ActiveRecord implements CartItemInterface
+class ProductVariation extends ActiveRecord
 {
 public static function tableName()
 {
@@ -40,29 +39,18 @@ public function beforeSave($insert)
     $this->variations = json_encode($this->variations);
     return parent::beforeSave($insert);
 }
-public function afterFind()
-{
-    $this->variations = json_decode($this->variations,true);
-    parent::afterFind();
+    public function afterFind()
+    {
+        $this->variations = json_decode($this->variations,true);
+        parent::afterFind();
 
+    }
+
+    public function getPrice(){
+    return $this->price+$this->product->price;
 }
 
-    public function getPrice()
-    {
-        return $this->price+$this->product->price;
-    }
-
-    public function getLabel()
-    {
-        $this->product->title;
-    }
-
-    public function getUniqueId()
-    {
-       return $this->sku;
-    }
-
     public function getProduct(){
-    return $this->hasOne(PostModel::class,['id'=>'post_id']);
+    return $this->hasOne(KodCommerceProduct::class,['id'=>'post_id']);
     }
 }

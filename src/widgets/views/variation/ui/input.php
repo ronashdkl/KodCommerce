@@ -6,7 +6,7 @@
 ?>
 
 <li class="options-item input">
-    <div data-id="<?=$model->id?>" data-value="<?=$model->value?>" data-toggle="tooltip" data-placement="top" title="<?=$model->get('typeValue')??null ?>">
+    <div data-id="<?=$model->id?>" data-value="<?=$model->value?>" data-toggle="tooltip" data-placement="top" title="<?=$model->get('description')??null ?>">
         <?=$model->value?>
     </div>
 </li>

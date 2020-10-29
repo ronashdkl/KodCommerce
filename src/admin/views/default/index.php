@@ -13,7 +13,7 @@
     <div class="panel-body">
        <?php
             foreach (Yii::$app->kodCommerceSetting->fieldData as $data){
-                echo $data ."\n";
+              print_r($data);
             }
        ?>
     </div>

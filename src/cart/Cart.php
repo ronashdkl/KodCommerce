@@ -2,6 +2,7 @@
 namespace kodcommerce\cart;
 
 use kodcommerce\cart\storage\StorageInterface;
+use kodcommerce\models\CartItemModel;
 use yii\base\Component;
 use yii\base\InvalidArgumentException;
 use yii\base\InvalidConfigException;
@@ -25,7 +26,7 @@ class Cart extends Component
 
 
     /**
-     * @var array
+     * @var CartItemModel[]
      */
     protected $items;
 
@@ -113,16 +114,20 @@ class Cart extends Component
         return $this;
     }
 
+
     /**
      * @param CartItemInterface $item
      *
+     * @param bool $update
      * @internal param $quantity
      */
     protected function addItem(CartItemInterface $item)
     {
         $uniqueId = $item->getUniqueId();
-        $this->items[$uniqueId] = $item;
+       $this->items[$uniqueId] = $item;
+
     }
+
 
     /**
      * Removes an item from the cart
@@ -154,6 +159,7 @@ class Cart extends Component
         return count($this->getItems($itemType));
     }
 
+
     /**
      * Returns all items of a given type from the cart
      *
@@ -179,15 +185,21 @@ class Cart extends Component
      * Finds all items of type $itemType, sums the values of $attribute of all models and returns the sum.
      *
      * @param string      $attribute
+     * @param string      $multiplyBy
      * @param string|null $itemType
      *
      * @return integer
      */
-    public function getAttributeTotal($attribute, $itemType = null)
+    public function getAttributeTotal($attribute,$multiplyBy=null, $itemType = null)
     {
         $sum = 0;
         foreach ($this->getItems($itemType) as $model) {
-            $sum += $model->{$attribute};
+            if($multiplyBy){
+                $sum += $model->{$attribute} * $model->{$multiplyBy};
+            }else{
+                $sum += $model->{$attribute};
+            }
+
         }
         return $sum;
     }

@@ -18,4 +18,32 @@ interface CartItemInterface
      * @return string
      */
     public function getUniqueId();
+
+    /** Return price
+     * @return string
+     */
+    public function getPrice();
+
+    /**
+     * Quantity
+     * @return mixed
+     */
+    public function getQuantity();
+
+    /**
+     * Reutrn quantity + price
+     * @return double
+     */
+    public function getTotal();
+
+    /**
+     * @return mixed
+     */
+    public function getVariations();
+
+    /**
+     * @return mixed
+     */
+    public function getImage();
+
 }

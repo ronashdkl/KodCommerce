@@ -1,0 +1,163 @@
+/*! ronaskl-kodcommerce-assets v1.0.0 | (c) 2020 Ronash Dhakal | ISC License */
+/* line 1, src/sass/cart.scss */
+#cart {
+  margin-top: 130px;
+}
+
+/* line 7, src/sass/cart.scss */
+.cart--summary .actions {
+  display: flex;
+  justify-content: space-between;
+}
+
+/* line 13, src/sass/cart.scss */
+.cart--id {
+  position: absolute;
+  left: 16px;
+  top: -11px;
+  background: #00bfd8;
+  border-radius: 20px;
+  padding: 3px 7px;
+  color: #fff;
+}
+
+/* line 22, src/sass/cart.scss */
+.cart--empty-text {
+  text-align: center;
+  padding: 31px;
+  font-size: 20px;
+}
+
+/* line 27, src/sass/cart.scss */
+.cart--summary {
+  padding: 25px;
+  position: relative;
+  border-radius: 3px 3px 24px 24px;
+}
+
+/* line 32, src/sass/cart.scss */
+.cart--summary .bag-icon {
+  position: absolute;
+  top: -30px;
+  width: 207px;
+  height: 123px;
+  border-radius: 50%;
+  border-right: 1px solid #dcd8d8;
+  border-left: 1px solid #dcd8d8;
+  border-top: 6px solid #dcd8d8;
+  border-bottom: 1px solid white;
+  float: left;
+  z-index: -1;
+}
+
+/* line 46, src/sass/cart.scss */
+.cart--summary table {
+  justify-content: center;
+  display: flex;
+}
+
+/* line 50, src/sass/cart.scss */
+#cart .cart-list {
+  border: 1px dashed #d0d0d0;
+  padding: 0 10px;
+}
+
+/* line 55, src/sass/cart.scss */
+.cart-list .cart-item {
+  position: relative;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  box-shadow: 0 0 9px #e8e8e8;
+  margin: 25px auto;
+  padding: 10px;
+}
+
+/* line 64, src/sass/cart.scss */
+.cart-list .cart-item > div {
+  flex-basis: 20%;
+  text-align: center;
+}
+
+/* line 70, src/sass/cart.scss */
+.cart-item.label {
+  padding: 10px;
+  box-shadow: none;
+}
+
+/* line 74, src/sass/cart.scss */
+.cart-list .cart-item img {
+  object-fit: cover;
+  width: 100px;
+  height: 100px;
+  flex: 0;
+}
+
+/* line 80, src/sass/cart.scss */
+.commerce-quantity {
+  align-items: center;
+  display: flex;
+}
+
+/* line 84, src/sass/cart.scss */
+.commerce-quantity .commerce--quantity {
+  display: flex;
+  justify-content: space-around;
+  width: 10vw;
+  align-items: center;
+  margin: 10px;
+}
+
+/* line 91, src/sass/cart.scss */
+.commerce-quantity .commerce--quantity > div {
+  cursor: pointer;
+}
+
+/* line 94, src/sass/cart.scss */
+.commerce-quantity input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* line 99, src/sass/cart.scss */
+.commerce-quantity .commerce--quantity > input {
+  -moz-appearance: textfield;
+  width: 65px;
+  padding: 5px;
+  text-align: center;
+}
+
+/* line 107, src/sass/cart.scss */
+.commerce--product-info {
+  margin: 0 auto;
+  display: grid;
+  justify-content: center;
+  gap: 15px;
+  position: relative;
+
+}
+
+/* line 114, src/sass/cart.scss */
+.commerce--product-info .commerce--wrapper {
+  box-shadow: 0 0 4px #e0e0e0;
+  padding: 20px;
+}
+
+@media (max-width: 425px) {
+  /* line 120, src/sass/cart.scss */
+  .commerce-quantity .commerce--quantity {
+    width: 30vw;
+  }
+  /* line 123, src/sass/cart.scss */
+  .cart-list .cart-item {
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 0 9px #e8e8e8;
+    margin: 25px auto;
+    grid-template-columns: 1fr 1fr;
+    padding: 10px;
+    gap: 20px;
+  }
+}

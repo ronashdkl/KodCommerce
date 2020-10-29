@@ -12,5 +12,6 @@ class KodCommerceAdmin extends \yii\base\Module
        $this->layout = '@kodCms/modules/admin/views/layouts/main';
        \Yii::$app->params['bsVersion'] = '3';
        \Yii::$app->params['bsDependencyEnabled'] = false;
+
    }
 }

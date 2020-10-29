@@ -3,10 +3,11 @@
 namespace kodcommerce\assets;
 
 use ronashdkl\kodCms\assets\AppAsset;
+use ronashdkl\kodCms\widgets\notify\assets\NotifyAssets;
 use yii\web\AssetBundle;
 use yii\web\JqueryAsset;
 
-class ProductVariationWidgetAsset extends AssetBundle
+class KodCommerceAsset extends AssetBundle
 {
 
     public $publishOptions = [
@@ -16,16 +17,20 @@ class ProductVariationWidgetAsset extends AssetBundle
     public function init()
     {
         parent::init();
+
         $this->sourcePath = dirname(__FILE__) . "/../../clientAssets/dist";
-        //$this->baseUrl = "http://localhost:8081/";
+       // $this->baseUrl = "http://localhost:8081";
 
     }
+    public $css = [
+        'css/main.css',
+
+    ];
 
     public $js = [
-        'cart.js'
+        'main.js'
     ];
     public $depends = [
        JqueryAsset::class,
-        JqueryUiAsset::class
     ];
 }

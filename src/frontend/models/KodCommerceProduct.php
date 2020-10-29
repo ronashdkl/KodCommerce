@@ -4,6 +4,7 @@ namespace kodCommerce\frontend\models;
 use kodCommerce\admin\models\PostAttributes;
 use kodCommerce\admin\models\ProductVariation;
 use yii\helpers\ArrayHelper;
+use yii\helpers\VarDumper;
 
 /**
  * Class KodCommerceProduct
