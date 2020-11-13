@@ -20,6 +20,7 @@ class RegisterModules
         Yii::$app->urlManager->addRules(
             [
                 'product/<slug>'=>'commerce/product',
+                'category/<slug>'=>'commerce/category',
                 'search'=>'commerce/search'
             ]
         );
