@@ -5,10 +5,13 @@ namespace kodCommerce\frontend\controllers;
 
 
 use kodCommerce\admin\models\ProductVariation;
+use kodCommerce\assets\KodCommerceAsset;
 use kodCommerce\frontend\base\CommerceBaseController;
 use kodCommerce\frontend\models\KodCommerceProduct;
 
+use kodCommerce\KodCommerceHooks;
 use yii\db\ActiveRecord;
+use yii\helpers\Html;
 use yii\helpers\VarDumper;
 use yii\web\NotFoundHttpException;
 use yii\web\Response;
@@ -21,24 +24,33 @@ class ProductController extends CommerceBaseController
     {
         $model = $this->findModel($slug);
         $this->view->title = $model->title;
-       // $this->getView()->params['breadcrumbs'][]=['label'=>'Product'];
-        $this->registerWidgets();
-//        $params = [
-//            'template'=>'index',
-//            'args'=>['model'=>$model]
-//        ];
-//        $view = \Yii::$app->hooks->apply_filters('kodcommerce_product_template',function ($params){
-//            return
-//        });
-        return $this->render('index',['model'=>$model]);
-}
 
-protected function findModel($slug):ActiveRecord
-{
-    $model =  KodCommerceProduct::findOne(['slug'=>$slug]);
-    if($model){
-        return $model;
+        // $this->getView()->params['breadcrumbs'][]=['label'=>'Product'];
+        if (\Yii::$app->request->isAjax) {
+            \Yii::$app->response->format = Response::FORMAT_JSON;
+            return [
+                'title' => $model->title,
+                'content' => $this->renderPartial('iframe', ['url' => '/product/' . $model->slug . '?quickView=true']),
+                'footer' => Html::button('Close', ['class' => 'btn btn-default pull-left', 'data-dismiss' => "modal"])
+            ];
+
+        } else {
+
+            if (!\Yii::$app->request->getQueryParam('quickView')) {
+                $this->registerWidgets();
+            }
+            $widgets = \Yii::$app->hooks->apply_filters(KodCommerceHooks::RENDER_PRODUCT_CONTENT, []);
+            return $this->render('index', ['model' => $model,'widgets'=>$widgets]);
+        }
+
     }
-    throw new NotFoundHttpException("Product Not FOund");
-}
+
+    protected function findModel($slug): ActiveRecord
+    {
+        $model = KodCommerceProduct::findOne(['slug' => $slug]);
+        if ($model) {
+            return $model;
+        }
+        throw new NotFoundHttpException("Product Not FOund");
+    }
 }

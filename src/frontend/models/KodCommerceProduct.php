@@ -37,4 +37,7 @@ public $formattedPrice;
        return  ArrayHelper::index($attributes,null,'name');
     }
 
+    public function generateRoute(){
+        return  "/".\Yii::$app->language."/product/".$this->slug;
+    }
 }

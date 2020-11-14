@@ -5,34 +5,24 @@
 <div class="grid-item">
     <div class="product">
         <div class="product-image">
-            <a href="#"><img alt="Shop product image!" src="/images/shop/products/1.jpg">
+            <a href="<?=$model->generateRoute()?>"><img alt="Shop product image!" src="<?=$model->getAvatar()?>">
             </a>
-            <a href="#"><img alt="Shop product image!" src="/images/shop/products/10.jpg">
+            <a href="<?=$model->generateRoute()?>"><img alt="Shop product image!" src="<?=$model->getAvatar()?>">
             </a>
-            <span class="product-new">NEW</span>
-            <span class="product-wishlist">
-                                                <a href="#"><i class="fa fa-heart"></i></a>
-                                            </span>
+
             <div class="product-overlay">
-                <a href="shop-product-ajax-page.html" data-lightbox="ajax">Quick View</a>
+                <a href="<?=$model->generateRoute()?>" role="modal-remote"><?=Yii::$app->kodCommerceSetting->get('catalog.label.quick_view')?></a>
             </div>
         </div>
         <div class="product-description">
-            <div class="product-category">Women</div>
+            <div class="product-category"><?=$model->catalog->name?></div>
             <div class="product-title">
-                <h3><a href="#">Bolt Sweatshirt</a></h3>
+                <h3><a href="<?=$model->generateRoute()?>"><?=$model->title ?></a></h3>
             </div>
-            <div class="product-price"><ins>$15.00</ins>
+            <div class="product-price"><ins><?=$model->formattedPrice ?></ins>
             </div>
-            <div class="product-rate">
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star-half-o"></i>
-            </div>
-            <div class="product-reviews"><a href="#">6 customer reviews</a>
-            </div>
+            <?= Yii::$app->hooks->do_action(\kodCommerce\KodCommerceHooks::RENDER_CATEGORY_PRODUCT_ITEM)?>
         </div>
     </div>
 </div>
+

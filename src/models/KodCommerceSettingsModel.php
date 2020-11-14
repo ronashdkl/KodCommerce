@@ -12,7 +12,7 @@ class KodCommerceSettingsModel extends BaseModel
 {
     public $fieldData;
     public $loadFromDb = true;
-    public $isMultilanguage = false;
+    public $isMultilanguage = true;
     public $listAttribute = null;
 
     public function rules()
@@ -49,6 +49,17 @@ class KodCommerceSettingsModel extends BaseModel
                 'type' => FieldConfig::INPUT,
                 'group' => 'local',
                 'label'=>'Currency Code'
+            ],
+            'fieldData[catalog][label][quick_view]' => [
+                'type' => FieldConfig::INPUT,
+                'value'=>'Quick View',
+                'group' => 'local',
+                'label'=>'Quick View Label',
+            ],
+            'fieldData[catalog][display][grid]' => [
+                'type' => FieldConfig::INPUT,
+                'value'=>'3',
+                'label'=> 'Number of catalog products grids',
             ],
 
 

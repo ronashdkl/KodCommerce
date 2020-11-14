@@ -30,7 +30,7 @@
                    ?>
 
                    <br>
-
+                   <?= Yii::$app->hooks->do_action(\kodCommerce\KodCommerceHooks::RENDER_CONTENT_AFTER_VARIATION)?>
                    <div class="commerce-quantity">
                        Quanity:
                        <div class="commerce--quantity">
@@ -59,12 +59,15 @@
                </div>
                </div> <!-- end of col -->
         </div>
-        <div class="row">
-            <div class="col-sm-12 col-lg-10 offset-lg-1">
-                <?=$model->body?>
-                <?=Yii::$app->hooks->do_action(\kodCommerce\KodCommerceHooks::RENDER_PRODUCT_CONTENT)?>
-            </div>
-        </div> <!-- end of row -->
+      <!-- end of row -->
+        <?php
+        foreach ($widgets as $widget){
+            if(isset($widget['class'])){
+                $data = $widget['data']??null;
+                echo $widget['class']::widget($data);
+            }
+        }
+        ?>
     </div> <!-- end of container -->
 </div> <!-- end of ex-basic-2 -->
 <!-- end of privacy content -->

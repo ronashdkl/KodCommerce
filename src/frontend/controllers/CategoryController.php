@@ -41,6 +41,8 @@ use kodCommerce\frontend\base\CommerceBaseController;
 use kodCommerce\frontend\models\KodCommerceCategory;
 use kodCommerce\frontend\models\KodCommerceProduct;
 use kodCommerce\KodCommerceHooks;
+use kodcommerce\widgets\ProductImagesWidget;
+use yii\bootstrap\Alert;
 use yii\data\ActiveDataProvider;
 use yii\helpers\Url;
 use yii\web\NotFoundHttpException;
@@ -55,8 +57,15 @@ class CategoryController extends CommerceBaseController
         $this->view->title = $model['name'];
         $this->registerBreadcrumb();
         $this->registerWidgets();
-        $widgets = \Yii::$app->hooks->apply_filters(KodCommerceHooks::RENDER_CATEGORY_LEFT_WIDGETS, []);
-        return $this->render('index', ['dataProvider' => $this->prepareData($model), 'widgets' => $widgets]);
+
+        $widgets_left = \Yii::$app->hooks->apply_filters(KodCommerceHooks::RENDER_CATEGORY_LEFT_WIDGETS, []);
+        $widgets_top = \Yii::$app->hooks->apply_filters(KodCommerceHooks::RENDER_CATEGORY_TOP_WIDGETS, []);
+        $widgets_bottom = \Yii::$app->hooks->apply_filters(KodCommerceHooks::RENDER_CATEGORY_BOTTOM_WIDGETS, []);
+        return $this->render('index', ['dataProvider' => $this->prepareData($model),
+            'widgets_left' => $widgets_left,
+            'widgets_top'=>$widgets_top,
+            'widgets_bottom'=>$widgets_bottom
+        ]);
     }
 
 
