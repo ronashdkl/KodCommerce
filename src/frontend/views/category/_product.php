@@ -19,8 +19,7 @@
             <div class="product-title">
                 <h3><a href="<?=$model->generateRoute()?>"><?=$model->title ?></a></h3>
             </div>
-            <div class="product-price"><ins><?=$model->formattedPrice ?></ins>
-            </div>
+            <div class="product-price"><ins class="commerce--product-price"><?=$model->formattedPrice ?></ins> </div>
             <?= Yii::$app->hooks->do_action(\kodCommerce\KodCommerceHooks::RENDER_CATEGORY_PRODUCT_ITEM)?>
         </div>
     </div>

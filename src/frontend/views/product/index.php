@@ -20,6 +20,7 @@
                    <?=yii\helpers\Html::hiddenInput(Yii::$app->request->csrfParam, Yii::$app->request->csrfToken)?>
                    <h3><?=$model->title?></h3>
                    <strong>Price <span class="item-price commerce--product-price"><?=$model->formattedPrice?></span></strong>
+                   <?= Yii::$app->hooks->do_action(\kodCommerce\KodCommerceHooks::RENDER_CONTENT_BEFORE_VARIATION)?>
                    <p class="commerce--product-stock"></p>
                    <p style="display: none" class="item-title"><?=$model->title?></p>
 
@@ -61,9 +62,14 @@
         </div>
       <!-- end of row -->
         <?php
+        $active_widgets = Yii::$app->kodCommerceSetting->activeWidgets('content');
         foreach ($widgets as $widget){
-            if(isset($widget['class'])){
-                $data = $widget['data']??null;
+            if(isset($widget['class']) && in_array($widget['class'],$active_widgets)){
+
+                $data = ['model'=>$model];
+                if(isset($widget['data'])){
+                    $data = \yii\helpers\ArrayHelper::merge($data,$widget['data']);
+                }
                 echo $widget['class']::widget($data);
             }
         }

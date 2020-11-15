@@ -19,7 +19,7 @@ use yii\web\Response;
 
 class ProductController extends CommerceBaseController
 {
-
+public $model;
     public function actionIndex($slug)
     {
         $model = $this->findModel($slug);
@@ -49,7 +49,7 @@ class ProductController extends CommerceBaseController
     {
         $model = KodCommerceProduct::findOne(['slug' => $slug]);
         if ($model) {
-            return $model;
+            return $this->model =  $model;
         }
         throw new NotFoundHttpException("Product Not FOund");
     }

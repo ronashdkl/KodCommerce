@@ -10,6 +10,8 @@ namespace kodCommerce;
  */
 class KodCommerceHooks
 {
+    const SETTING_FIELDS = 'kodCommerce_setting_fields';
+    const RENDER_EMPTY_PRODUCT_CONTENT = 'RENDER_EMPTY_PRODUCT_CONTENT';
     const RENDER_PRODUCT_CONTENT = 'kodcommerce_render_product_content';
     const RENDER_CONTENT_AFTER_VARIATION = 'kodcommerce_render_content_after_variation';
     const RENDER_CONTENT_BEFORE_VARIATION = 'kodcommerce_render_content_before_variation';
@@ -21,13 +23,19 @@ class KodCommerceHooks
 
 //        Example
 
-       /* \Yii::$app->hooks->add_filter(KodCommerceHooks::RENDER_CATEGORY_TOP_WIDGETS,function($d){
-            return [[
-                'class'=>ProductImagesWidget::class,
-                'data'=>[
-                    'images'=>KodCommerceProduct::find()->one()->images
-                ]
-            ]];
-        });*/
+    /* \Yii::$app->hooks->add_filter(KodCommerceHooks::RENDER_CATEGORY_TOP_WIDGETS,function($d){
+         return [[
+             'class'=>ProductImagesWidget::class,
+             'data'=>[
+                 'images'=>KodCommerceProduct::find()->one()->images
+             ]
+         ]];
+     });*/
+
+
+    /*\Yii::$app->hooks->add_action(KodCommerceHooks::RENDER_EMPTY_PRODUCT_CONTENT,function(){
+        echo "hi";
+    });*/
+
 
 }
