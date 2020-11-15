@@ -16,15 +16,5 @@ public function register(){
            'key' => 'cart'
        ]
    ]);
-    \Yii::$app->set('wishList',[
-        'class' => 'kodcommerce\cart\Cart',
-        // you can change default storage class as following:
-        'storageClass' => [
-            'class' => 'kodcommerce\cart\storage\SessionStorage',
-            // you can also override some properties
-            'key' => 'wishList'
-        ]
-    ]);
-
 }
 }

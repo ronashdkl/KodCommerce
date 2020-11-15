@@ -44,7 +44,11 @@ class KodCommerce extends \yii\base\Module
 
     function registerAssets()
     {
-
+        \Yii::$app->hooks->add_action(\ronashdkl\kodCms\components\Hooks::RENDER_NAVIGATION_ITEM,function(){
+            echo ' <li id="cart-bag">
+                        <a href="/commerce/cart"><i class="icon-shopping-bag"></i><span class="cart-total-items"></span></a>
+                    </li>';
+        });
         \Yii::$app->view->registerAssetBundle(KodCommerceAsset::class);
 
         $config = $this->initCartConfig();
