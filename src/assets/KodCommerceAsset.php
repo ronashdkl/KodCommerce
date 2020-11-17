@@ -1,9 +1,7 @@
 <?php
 
-namespace kodcommerce\assets;
+namespace kodCommerce\assets;
 
-use ronashdkl\kodCms\assets\AppAsset;
-use ronashdkl\kodCms\widgets\notify\assets\NotifyAssets;
 use yii\web\AssetBundle;
 use yii\web\JqueryAsset;
 
@@ -32,5 +30,6 @@ class KodCommerceAsset extends AssetBundle
     ];
     public $depends = [
        JqueryAsset::class,
+      CrudAsset::class
     ];
 }

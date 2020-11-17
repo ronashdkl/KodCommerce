@@ -3,7 +3,13 @@
 namespace kodCommerce;
 
 use kodcommerce\assets\KodCommerceAsset;
+use kodcommerce\events\KodCommerceCatalogLeftWidgetEvent;
+use kodCommerce\frontend\controllers\CategoryController;
+use yii\base\Event;
+use yii\bootstrap4\Alert;
 use yii\filters\AccessControl;
+use yii\helpers\ArrayHelper;
+use yii\helpers\VarDumper;
 use yii\web\View;
 
 class KodCommerce extends \yii\base\Module
@@ -26,17 +32,23 @@ class KodCommerce extends \yii\base\Module
         //kodCms-navigation
 
         $this->registerAssets();
+
     }
 
-    private function setupPathMap(){
-        \Yii::$app->view->theme->pathMap['@kodcommerce/widgets/views'] = ['@app/widgets/views','@kodcommerce/widgets/views'];
-        \Yii::$app->view->theme->pathMap['@kodcommerce/frontend/views'] = ['@app/views/commerce/','@kodcommerce/frontend/views'];
+    private function setupPathMap()
+    {
+        \Yii::$app->view->theme->pathMap['@kodcommerce/widgets/views'] = ['@app/widgets/views', '@kodcommerce/widgets/views'];
+        \Yii::$app->view->theme->pathMap['@kodcommerce/frontend/views'] = ['@app/views/commerce/', '@kodcommerce/frontend/views'];
 
     }
 
     function registerAssets()
     {
-
+        \Yii::$app->hooks->add_action(\ronashdkl\kodCms\components\Hooks::RENDER_NAVIGATION_ITEM,function(){
+            echo ' <li id="cart-bag">
+                        <a href="/commerce/cart"><i class="icon-shopping-bag"></i><span class="cart-total-items"></span></a>
+                    </li>';
+        });
         \Yii::$app->view->registerAssetBundle(KodCommerceAsset::class);
 
         $config = $this->initCartConfig();

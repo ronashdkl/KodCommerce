@@ -20,6 +20,7 @@
                    <?=yii\helpers\Html::hiddenInput(Yii::$app->request->csrfParam, Yii::$app->request->csrfToken)?>
                    <h3><?=$model->title?></h3>
                    <strong>Price <span class="item-price commerce--product-price"><?=$model->formattedPrice?></span></strong>
+                   <?= Yii::$app->hooks->do_action(\kodCommerce\KodCommerceHooks::RENDER_CONTENT_BEFORE_VARIATION)?>
                    <p class="commerce--product-stock"></p>
                    <p style="display: none" class="item-title"><?=$model->title?></p>
 
@@ -30,7 +31,7 @@
                    ?>
 
                    <br>
-
+                   <?= Yii::$app->hooks->do_action(\kodCommerce\KodCommerceHooks::RENDER_CONTENT_AFTER_VARIATION)?>
                    <div class="commerce-quantity">
                        Quanity:
                        <div class="commerce--quantity">
@@ -59,12 +60,20 @@
                </div>
                </div> <!-- end of col -->
         </div>
-        <div class="row">
-            <div class="col-sm-12 col-lg-10 offset-lg-1">
-                <?=$model->body?>
-                <?=Yii::$app->hooks->do_action(\kodCommerce\KodCommerceHooks::RENDER_PRODUCT_CONTENT)?>
-            </div>
-        </div> <!-- end of row -->
+      <!-- end of row -->
+        <?php
+        $active_widgets = Yii::$app->kodCommerceSetting->activeWidgets('content');
+        foreach ($widgets as $widget){
+            if(isset($widget['class']) && in_array($widget['class'],$active_widgets)){
+
+                $data = ['model'=>$model];
+                if(isset($widget['data'])){
+                    $data = \yii\helpers\ArrayHelper::merge($data,$widget['data']);
+                }
+                echo $widget['class']::widget($data);
+            }
+        }
+        ?>
     </div> <!-- end of container -->
 </div> <!-- end of ex-basic-2 -->
 <!-- end of privacy content -->

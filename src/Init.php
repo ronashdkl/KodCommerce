@@ -6,6 +6,7 @@ namespace kodCommerce;
 
 use kodCommerce\services\Cart;
 use kodCommerce\services\Events;
+use kodCommerce\services\RegisterCommerceWidgets;
 use kodCommerce\services\RegisterCurrencyFormatter;
 use kodCommerce\services\RegisterHooks;
 use kodCommerce\services\RegisterModules;
@@ -26,7 +27,8 @@ class Init extends BaseObject
         RegisterHooks::class,
         RegisterCurrencyFormatter::class,
         RegisterPostUpdateSection::class,
-        Events::class
+        Events::class,
+        RegisterCommerceWidgets::class
     ];
 
     /**

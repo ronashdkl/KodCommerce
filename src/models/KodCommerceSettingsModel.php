@@ -4,6 +4,7 @@
 namespace kodcommerce\models;
 
 
+use kodCommerce\KodCommerceHooks;
 use ronashdkl\kodCms\components\FieldConfig;
 use ronashdkl\kodCms\models\BaseModel;
 use yii\helpers\ArrayHelper;
@@ -12,7 +13,7 @@ class KodCommerceSettingsModel extends BaseModel
 {
     public $fieldData;
     public $loadFromDb = true;
-    public $isMultilanguage = false;
+    public $isMultilanguage = true;
     public $listAttribute = null;
 
     public function rules()
@@ -25,7 +26,7 @@ class KodCommerceSettingsModel extends BaseModel
     public function formTypes()
     {
 
-        return \Yii::$app->hooks->apply_filters('kodCommerce_setting_fields', [
+        return \Yii::$app->hooks->apply_filters(KodCommerceHooks::SETTING_FIELDS, [
             'fieldData[date_format]' => [
                 'type' => FieldConfig::INPUT,
                 'value'=>'dwd',
@@ -50,14 +51,73 @@ class KodCommerceSettingsModel extends BaseModel
                 'group' => 'local',
                 'label'=>'Currency Code'
             ],
+            'fieldData[catalog][label][quick_view]' => [
+                'type' => FieldConfig::INPUT,
+                'value'=>'Quick View',
+                'group' => 'local',
+                'label'=>'Quick View Label',
+            ],
+            'fieldData[catalog][display][grid]' => [
+                'type' => FieldConfig::RADIO,
+                'data'=>[3=>'Three',5=>'Five'],
+                'value'=>'3',
+                'label'=> 'Number of catalog products grids',
+            ],
+            'fieldData[catalog][display][empty]' => [
+                'type' => FieldConfig::INPUT,
+                'label'=> 'Empty List text',
+                'group' => 'display',
+            ],
+           'fieldData[catalog][widgets][content]' => [
+                'type' => FieldConfig::CHECKBOX,
+                'data'=> $this->getCommerceWidgets(KodCommerceHooks::RENDER_PRODUCT_CONTENT),
+                'label'=> 'Product Widgets',
+
+                'group' => 'widget',
+            ],
+            'fieldData[catalog][widgets][catalog][top]' => [
+                'type' => FieldConfig::CHECKBOX,
+                'data'=> $this->getCommerceWidgets(KodCommerceHooks::RENDER_CATEGORY_TOP_WIDGETS),
+                'label'=> 'Category Top Widgets',
+
+                'group' => 'widget',
+            ],
+            'fieldData[catalog][widgets][catalog][left]' => [
+                'type' => FieldConfig::CHECKBOX,
+                'data'=> $this->getCommerceWidgets(KodCommerceHooks::RENDER_CATEGORY_LEFT_WIDGETS),
+                'label'=> 'Category Left Widgets',
+
+                'group' => 'widget',
+            ],
+            'fieldData[catalog][widgets][catalog][bottom]' => [
+                'type' => FieldConfig::CHECKBOX,
+                'data'=> $this->getCommerceWidgets(KodCommerceHooks::RENDER_CATEGORY_BOTTOM_WIDGETS),
+                'label'=> 'Category Bottom Widgets',
+
+                'group' => 'widget',
+            ],
 
 
         ]);
+
+    }
+    function getCommerceWidgets($hooks){
+       $widgets =  \Yii::$app->hooks->apply_filters($hooks, []);
+       return ArrayHelper::map($widgets,'class','name');
     }
 
     public function get($fieldName)
     {
         return ArrayHelper::getValue($this->fieldData, $fieldName);
+    }
+
+    public function activeWidgets($name)
+    {
+        $widgets = $this->get('catalog.widgets.'.$name);
+        if(!is_array($widgets)){
+            $widgets = [];
+        }
+        return $widgets;
     }
 
     public function set($fieldName, $value)
