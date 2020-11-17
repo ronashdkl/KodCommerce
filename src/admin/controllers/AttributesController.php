@@ -3,7 +3,7 @@
 
 namespace kodCommerce\admin\controllers;
 
-use kodCommerce\admin\models\kodCommerceAttribute;
+use kodCommerce\admin\models\KodCommerceAttribute;
 
 
 use kodCommerce\admin\models\search\KodCommerceAttributeSearch;
