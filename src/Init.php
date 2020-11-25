@@ -6,13 +6,14 @@ namespace kodCommerce;
 
 use kodCommerce\services\Cart;
 use kodCommerce\services\Events;
+use kodCommerce\services\Formatter;
 use kodCommerce\services\RegisterCommerceWidgets;
 use kodCommerce\services\RegisterCurrencyFormatter;
 use kodCommerce\services\RegisterHooks;
 use kodCommerce\services\RegisterModules;
 use kodCommerce\services\RegisterPostUpdateSection;
 use yii\base\BaseObject;
-use yii\i18n\Formatter;
+
 
 class Init extends BaseObject
 {
@@ -28,7 +29,8 @@ class Init extends BaseObject
         RegisterCurrencyFormatter::class,
         RegisterPostUpdateSection::class,
         Events::class,
-        RegisterCommerceWidgets::class
+        RegisterCommerceWidgets::class,
+        Formatter::class
     ];
 
     /**
