@@ -65,7 +65,7 @@ class KodCommerce extends \yii\base\Module
     private function initCartConfig()
     {
         $settings = \Yii::$app->get('kodCommerceSetting');
-        return json_encode([
+        $config = [
             'key' => 'cart',
             'priceFormatter' => [
                 'currency' => $settings['fieldData']['currencyCode'],
@@ -75,7 +75,7 @@ class KodCommerce extends \yii\base\Module
             ]
             ,
             'apiRoute' => [
-                'controller' => "/en/commerce/cart-api",
+                'controller' => "/".\Yii::$app->language."/commerce/cart-api",
                 'indexAction' => "",
                 'addAction' => "add",
                 'removeAction' => "delete",
@@ -85,6 +85,7 @@ class KodCommerce extends \yii\base\Module
                 'contentError' => "Oops, we haven't got JSON!",
 
             ]
-        ]);
+        ];
+        return json_encode($config);
     }
 }

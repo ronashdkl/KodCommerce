@@ -5,6 +5,7 @@ namespace kodCommerce\services;
 
 
 use Yii;
+use yii\helpers\VarDumper;
 
 class RegisterModules
 {
@@ -20,7 +21,7 @@ class RegisterModules
         Yii::$app->urlManager->addRules(
             [
                 'product/<slug>'=>'commerce/product',
-                'category/<slug>'=>'commerce/category',
+                'catalog/<slug>'=>'commerce/category',
                 'search'=>'commerce/search'
             ]
         );
