@@ -42,6 +42,7 @@ class CartModel extends Model
     public function save(){
         if($this->validate()){
            $this->_data = new CartItemModel($this->sku,$this->quantity);
+           //$this->data->price = $this->data->getTotal();
             \Yii::$app->cart->add($this->_data);
             return true;
         }else{

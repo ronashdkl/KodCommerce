@@ -1,7 +1,7 @@
 export default (function (kodObject) {
         var config = {
             apiRoute: {
-                controller: "/en/commerce/product-api",
+                controller: "/commerce/product-api",
                 indexAction: "index",
             }, //must  add / at the end of url
 

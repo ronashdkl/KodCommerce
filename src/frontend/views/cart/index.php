@@ -29,12 +29,12 @@
                 <p class="cart--empty-text" style="display: none">Your cart is an empty</p>
             </div>
             <div class="col-sm-12 col-md-12 col-lg-3">
-                <div class="card cart--summary">
+                <div class="">
                     <div class="bag-icon"></div>
-                    <div class="card-title text-center">
+                    <div class="">
                         <h4>Summary</h4>
                     </div>
-                    <div class="card-body ">
+                    <div class=" ">
                         <table class="table table-responsive table-hover">
                             <tr>
                                 <th>Items in Cart</th>

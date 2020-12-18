@@ -29,7 +29,7 @@
            <div class="panel-body">
                <?php
 
-   $action = $postAttributes->id?'/en/commerce-admin/post/attributes?id='.$postAttributes->id:'/en/commerce-admin/post/attributes';
+   $action = $postAttributes->id?'/'.Yii::$app->language.'/commerce-admin/post/attributes?id='.$postAttributes->id:'/'.Yii::$app->language.'/commerce-admin/post/attributes';
                $form = \yii\bootstrap\ActiveForm::begin([
                    'action'=>$action,
                    'options'=>['data-pjax'=>1]
@@ -69,7 +69,7 @@
 
                echo \yii\helpers\Html::submitButton('save',['class'=>'btn btn-info']);
 
-               echo $postAttributes->id? " ".\yii\helpers\Html::a('New','/en/commerce-admin/post/attributes?post_id='.$post_id,['class'=>'btn btn-success','data-pjax'=>'1']):null;
+               echo $postAttributes->id? " ".\yii\helpers\Html::a('New','/'.Yii::$app->language.'/commerce-admin/post/attributes?post_id='.$post_id,['class'=>'btn btn-success','data-pjax'=>'1']):null;
 
                \yii\bootstrap\ActiveForm::end();
 
