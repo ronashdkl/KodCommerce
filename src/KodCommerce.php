@@ -52,22 +52,36 @@ class KodCommerce extends \yii\base\Module
         \Yii::$app->view->registerAssetBundle(KodCommerceAsset::class);
 
         $config = $this->initCartConfig();
-
+        $variationConfig = $this->initVariationConfig();
         $script = <<< JS
                     window.kodCommerce = {
-                    variationConfig:null,
+                    variationConfig:$variationConfig,
                     cartConfig: $config ,
                     }
                 JS;
         \Yii::$app->view->registerJs($script, View::POS_HEAD);
     }
+    private function initVariationConfig (){
+
+        $config = [
+          'apiRoute' =>[
+              'controller' =>'/'.\Yii::$app->language.'/commerce/product-api',
+              'indexAction'=>'index'
+          ],
+          'errorMessage'=>[
+              'contentError'=>'Oops, we haven\'t got JSON!'
+          ]
+        ];
+        return json_encode($config);
+    }
 
     private function initCartConfig()
     {
         $settings = \Yii::$app->get('kodCommerceSetting');
-        return json_encode([
+        $config = [
             'key' => 'cart',
             'priceFormatter' => [
+                'locale'=> $settings['fieldData']['locale'],
                 'currency' => $settings['fieldData']['currencyCode'],
                 'thousandSeparator' => $settings['fieldData']['thousandSeparator'],
                 'decimalSeparator' => $settings['fieldData']['decimalSeparator']
@@ -75,7 +89,7 @@ class KodCommerce extends \yii\base\Module
             ]
             ,
             'apiRoute' => [
-                'controller' => "/en/commerce/cart-api",
+                'controller' => "/".\Yii::$app->language."/commerce/cart-api",
                 'indexAction' => "",
                 'addAction' => "add",
                 'removeAction' => "delete",
@@ -85,6 +99,7 @@ class KodCommerce extends \yii\base\Module
                 'contentError' => "Oops, we haven't got JSON!",
 
             ]
-        ]);
+        ];
+        return json_encode($config);
     }
 }

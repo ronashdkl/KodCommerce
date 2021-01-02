@@ -9,7 +9,7 @@ class CommercePlugin{
     }
 
     public function install(){
-       $this->migrate('up');
+      // $this->migrate('up');
     }
 
     function register(){

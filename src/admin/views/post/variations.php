@@ -1,7 +1,7 @@
 <?php
 \yii\widgets\Pjax::begin();
 $form = \yii\bootstrap\ActiveForm::begin([
-        'action'=>'/en/commerce-admin/post/variations?id='.$post_id,
+        'action'=>'/'.Yii::$app->language.'/commerce-admin/post/variations?id='.$post_id,
         'options'=>[
                 'data-pjax'=>'1'
         ]
@@ -11,6 +11,7 @@ $form = \yii\bootstrap\ActiveForm::begin([
     ->max('price');
 
 echo $max;*/
+echo \ronashdkl\kodCms\widgets\Alert::widget();
 ?>
 <div class="row">
 

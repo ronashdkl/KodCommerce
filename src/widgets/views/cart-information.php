@@ -1,7 +1,10 @@
+
 <?php
 /**
  * @var  $total Closure
  * @var  $items array
+ * @var  $actions array
+ * @var  $title string
  */
 ?>
 <style>
@@ -11,7 +14,7 @@
 
 <section id="cart">
     <div class="container">
-        <h3>Cart</h3>
+        <h3><?=$title?></h3>
         <?= yii\helpers\Html::hiddenInput(Yii::$app->request->csrfParam, Yii::$app->request->csrfToken) ?>
 
         <div class="row">
@@ -49,8 +52,11 @@
 
                         </table>
                         <div class="actions">
-                            <button class="btn btn-danger cart--clear-btn">Clear</button>
-                            <button class="btn btn-success cart--checkout-btn">Checkout</button>
+                           <?php
+                           foreach ($actions as $action){
+                               echo $action;
+                           }
+                           ?>
                         </div>
                     </div>
                 </div>
@@ -58,3 +64,4 @@
         </div>
     </div>
 </section>
+

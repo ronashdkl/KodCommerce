@@ -3,17 +3,17 @@
  * @type {{init: init}}
  */
 export default  (function (kodObject) {
-
         var config = {
             key: "cart",
             priceFormatter:{
+                locale:'en',
                currency:"NPR",
                thousandSeparator:",",
                 decimalSeparator:'.'
 
             },
             apiRoute: {
-                controller: "/en/commerce/cart-api",
+                controller: "/commerce/cart-api",
                 indexAction: "",
                 addAction: "add",
                 removeAction: "delete",
@@ -92,14 +92,13 @@ export default  (function (kodObject) {
             }
 
             var formatPrice = function(price){
-                var result;
-                var cfg = config.priceFormatter;
-                result =  cfg.currency + ' ' + parseFloat(price, 10).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "1" + cfg.thousandSeparator).toString();
 
-                if(cfg.decimalSeparator!=='.'){
-                        result =  result.replace(/\./g,cfg.decimalSeparator).toString()
-                }
-                return result;
+                 var cfg = config.priceFormatter;
+
+                return new Intl.NumberFormat(cfg.locale,{
+                    style:'currency',
+                    currency:cfg.currency
+                }).format(price);
             }
 
             var hideEmptyCartText = function (active = true) {
@@ -402,7 +401,7 @@ export default  (function (kodObject) {
 
                 for (let i = 0; i < items.length; i++) {
 
-                    cart[items[i].sku] = new Item(items[i].sku).build(items[i])
+                    cart[items[i].sku] = new Item(items[i].sku).build(items[i]);
 
                 }
             }
