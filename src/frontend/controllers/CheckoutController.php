@@ -96,17 +96,19 @@ class CheckoutController extends CommerceBaseController
     {
         unset($billingAddr['type']);
         try {
-            KodCommerceShippingAddress::find()->where([
+           $model =  KodCommerceShippingAddress::find()->where([
                 'user' => \Yii::$app->user->id,
                 'type' => 1
-            ])->one()->delete();
-
-            $model = new KodCommerceShippingAddress([
-                'user' => \Yii::$app->user->identity->getId()??null
-            ]);
+            ])->one();
+           if($model == null){
+               $model = new KodCommerceShippingAddress([
+                   'user' => \Yii::$app->user->identity->getId()??null,
+               ]);
+           }
             $model->setAttributes($billingAddr);
 
             $model->save();
+
         } catch (StaleObjectException $e) {
         }
 
