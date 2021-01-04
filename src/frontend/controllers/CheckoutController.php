@@ -42,13 +42,14 @@ class CheckoutController extends CommerceBaseController
 
 
         if($model->load(\Yii::$app->request->post()) && $model->save()){
-
+            \Yii::$app->session->set('billing_address',$model);
             if($model->isSameShippingAddress){
                 $this->addShippingAddress($model->getAttributes());
+                
                 return $this->redirect('checkout/confirm');
                }
 
-            \Yii::$app->session->set('billing_address',$model);
+           
             return $this->redirect('checkout/shipping-address');
         }
       return $this->render('index',['model'=>$model,'total'=>$total,'title'=>'Billing Address']);
@@ -108,6 +109,7 @@ class CheckoutController extends CommerceBaseController
             $model->setAttributes($billingAddr);
 
             $model->save();
+            \Yii::$app->session->set('shipping_address',$model);
 
         } catch (StaleObjectException $e) {
         }
