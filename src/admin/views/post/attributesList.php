@@ -28,9 +28,9 @@ use kartik\grid\GridView;
                     'attribute' => 'Action',
                     'format' => 'raw',
                     'value' => function ($model) {
-                        return \yii\helpers\Html::a('Update',['/'.Yii::$app->language.'/commerce-admin/post/attributes','id'=>$model->id],['class'=>'btn btn-primary'])
+                        return \yii\helpers\Html::a('Update',['/commerce-admin/post/attributes','id'=>$model->id],['class'=>'btn btn-primary'])
                             ." ".
-                            \yii\helpers\Html::a('Remove',['/'.Yii::$app->language.'/commerce-admin/post/attributes','id'=>$model->id,'remove'=>true],['class'=>'btn btn-danger']);
+                            \yii\helpers\Html::a('Remove',['/commerce-admin/post/attributes','id'=>$model->id,'remove'=>true],['class'=>'btn btn-danger']);
                     },
                 ],
             ],
