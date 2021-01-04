@@ -29,7 +29,7 @@
                 <p class="cart--empty-text" style="display: none">Your cart is an empty</p>
             </div>
             <div class="col-sm-12 col-md-12 col-lg-3">
-                <div class="">
+                <div class="sticker">
                     <div class="bag-icon"></div>
                     <div class="">
                         <h4>Summary</h4>

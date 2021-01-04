@@ -20,7 +20,7 @@ class KodCommerceBillingAddress extends KodCommerceContact
 public function rules()
 {
     $rules = parent::rules();
-    $rules[] = ['isSameShippingAddress','string'];
+    $rules[] = ['isSameShippingAddress','safe'];
     return $rules;
 }
 

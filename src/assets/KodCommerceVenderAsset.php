@@ -5,7 +5,7 @@ namespace kodCommerce\assets;
 use yii\web\AssetBundle;
 use yii\web\JqueryAsset;
 
-class KodCommerceAsset extends AssetBundle
+class KodCommerceVenderAsset extends AssetBundle
 {
 
     public $publishOptions = [
@@ -16,17 +16,17 @@ class KodCommerceAsset extends AssetBundle
     {
         parent::init();
 
-        $this->sourcePath = dirname(__FILE__) . "/../../clientAssets/dist";
+        $this->sourcePath = dirname(__FILE__) . "/../../clientAssets/vendor";
        // $this->baseUrl = "http://localhost:8081";
 
     }
     public $css = [
-        'css/main.css',
+
 
     ];
 
     public $js = [
-        'main.js',
+
         'jquery.sticky.js'
     ];
     public $depends = [

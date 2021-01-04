@@ -5,6 +5,8 @@ namespace kodcommerce\models;
 use ronashdkl\kodCms\components\FieldConfig;
 use ronashdkl\kodCms\models\User;
 use Yii;
+use yii\db\StaleObjectException;
+use yii\helpers\VarDumper;
 
 /**
  * This is the model class for table "kodcommerce_contact".
@@ -50,8 +52,10 @@ class KodCommerceContact extends \yii\db\ActiveRecord
             [['city', 'state', 'email'], 'string', 'max' => 100],
             [['phone'], 'string', 'max' => 15],
             [['user'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user' => 'id']],
+
         ];
     }
+
 
     /**
      * {@inheritdoc}
@@ -93,6 +97,9 @@ class KodCommerceContact extends \yii\db\ActiveRecord
     public function formTypes()
     {
         return [
+            'country'=>[
+                'type'=>FieldConfig::INPUT,
+            ],
             'address_line_one'=>[
                 'type'=>FieldConfig::INPUT,
 
@@ -103,7 +110,10 @@ class KodCommerceContact extends \yii\db\ActiveRecord
                 'type'=>FieldConfig::INPUT
             ],'city'=>[
                 'type'=>FieldConfig::INPUT
-            ],'phone'=>[
+            ],'state'=>[
+                'type'=>FieldConfig::INPUT
+            ],
+            'phone'=>[
                 'type'=>FieldConfig::INPUT
             ]
             ,'email'=>[
@@ -114,4 +124,6 @@ class KodCommerceContact extends \yii\db\ActiveRecord
             ],
         ];
     }
+
+
 }

@@ -26,7 +26,8 @@ class KodCommerceAsset extends AssetBundle
     ];
 
     public $js = [
-        'main.js'
+        'main.js',
+        'jquery.sticky.js'
     ];
     public $depends = [
        JqueryAsset::class,

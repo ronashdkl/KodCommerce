@@ -1,12 +1,6 @@
-<?php
-
-$form = \yii\bootstrap4\ActiveForm::begin();
-?>
-
-<div class="row">
-    <div class="col-sm-12 col-md-6">
-        <strong><?=$title?></strong>
-        <br>
+<div class="row justify-content-center">
+    <div class="col-sm-12 col-md-8">
+        <strong class="mb-3"><?=$title?></strong>
         <?=
         \ronashdkl\kodCms\widgets\config\FormFieldWidget::widget([
             'model'=>$model,
@@ -15,7 +9,7 @@ $form = \yii\bootstrap4\ActiveForm::begin();
         ])
         ?>
     </div>
+
 </div>
-<?php
-\yii\bootstrap4\ActiveForm::end()
-?>
+
+

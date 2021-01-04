@@ -3,6 +3,7 @@
 namespace kodCommerce;
 
 use kodcommerce\assets\KodCommerceAsset;
+use kodCommerce\assets\KodCommerceVenderAsset;
 use kodcommerce\events\KodCommerceCatalogLeftWidgetEvent;
 use kodCommerce\frontend\controllers\CategoryController;
 use yii\base\Event;
@@ -50,6 +51,8 @@ class KodCommerce extends \yii\base\Module
                     </li>';
         });
         \Yii::$app->view->registerAssetBundle(KodCommerceAsset::class);
+        \Yii::$app->view->registerAssetBundle(KodCommerceVenderAsset::class);
+        \Yii::$app->view->registerJs('$(".sticker").sticky({topSpacing:90});',View::POS_END);
 
         $config = $this->initCartConfig();
         $variationConfig = $this->initVariationConfig();
@@ -58,6 +61,7 @@ class KodCommerce extends \yii\base\Module
                     variationConfig:$variationConfig,
                     cartConfig: $config ,
                     }
+                    
                 JS;
         \Yii::$app->view->registerJs($script, View::POS_HEAD);
     }
